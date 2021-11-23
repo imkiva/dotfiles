@@ -1,39 +1,24 @@
-# If you come from bash you might have to change your $PATH.
-# export PATH=$HOME/bin:/usr/local/bin:$PATH
-
 # Path to your oh-my-zsh installation.
-export ZSH="/home/kiva/.oh-my-zsh"
+export ZSH=/Users/kiva/.oh-my-zsh
 
-# Set name of the theme to load --- if set to "random", it will
-# load a random theme each time oh-my-zsh is loaded, in which case,
-# to know which specific one was loaded, run: echo $RANDOM_THEME
-# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
-
-# Set list of themes to pick from when loading at random
-# Setting this variable when ZSH_THEME=random will cause zsh to load
-# a theme from this variable instead of looking in ~/.oh-my-zsh/themes/
-# If set to an empty array, this variable will have no effect.
-# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
-
+# Set name of the theme to load.
+# Look in ~/.oh-my-zsh/themes/
+# Optionally, if you set this to "random", it'll load a random theme each
+# time that oh-my-zsh is loaded.
+#ZSH_THEME="robbyrussell"
+ZSH_THEME="sorin"
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
-# Uncomment the following line to use hyphen-insensitive completion.
-# Case-sensitive completion must be off. _ and - will be interchangeable.
+# Uncomment the following line to use hyphen-insensitive completion. Case
+# sensitive completion must be off. _ and - will be interchangeable.
 # HYPHEN_INSENSITIVE="true"
 
 # Uncomment the following line to disable bi-weekly auto-update checks.
 # DISABLE_AUTO_UPDATE="true"
 
-# Uncomment the following line to automatically update without prompting.
-# DISABLE_UPDATE_PROMPT="true"
-
 # Uncomment the following line to change how often to auto-update (in days).
 # export UPDATE_ZSH_DAYS=13
-
-# Uncomment the following line if pasting URLs and other text is messed up.
-# DISABLE_MAGIC_FUNCTIONS=true
 
 # Uncomment the following line to disable colors in ls.
 # DISABLE_LS_COLORS="true"
@@ -54,29 +39,28 @@ ZSH_THEME="robbyrussell"
 
 # Uncomment the following line if you want to change the command execution time
 # stamp shown in the history command output.
-# You can set one of the optional three formats:
-# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
-# or set a custom format using the strftime function format specifications,
-# see 'man strftime' for details.
+# The optional three formats: "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
 # HIST_STAMPS="mm/dd/yyyy"
 
 # Would you like to use another custom folder than $ZSH/custom?
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
-# Which plugins would you like to load?
-# Standard plugins can be found in ~/.oh-my-zsh/plugins/*
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting docker github colored-man-pages screen cargo)
+plugins=(git osx zsh-autosuggestions zsh-syntax-highlighting docker github colored-man-pages screen cargo gradle brew sudo)
 
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=gray,bold,underline"
-
-source $ZSH/oh-my-zsh.sh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="underline"
 
 # User configuration
 
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
 # export MANPATH="/usr/local/man:$MANPATH"
+
+source $ZSH/oh-my-zsh.sh
+eval "$(HOMEBREW_SHELLENV_PREFIX= /opt/homebrew/bin/brew shellenv)"
+eval "$(starship init zsh)"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -91,6 +75,9 @@ source $ZSH/oh-my-zsh.sh
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
 
+# ssh
+# export SSH_KEY_PATH="~/.ssh/dsa_id"
+
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
 # plugins, and themes. Aliases can be placed here, though oh-my-zsh
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
@@ -100,17 +87,55 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-export PATH="$PATH:/home/kiva/.local/bin"
+alias gplr='git pull -r'
+alias gt='gradle test'
+alias gj='gradle jlink'
 
-#if [[ $- == *i* ]]; then
-#    sudo run-parts /etc/update-motd.d
-#fi
-
-function setup-proxy() {
-    export http_proxy=localhost:10809
-    export https_proxy=localhost:10809
-    export socks_proxy=localhost:10808
+function append-path() {
+  export PATH="$PATH:$1"
 }
 
-#eval "$(starship init zsh)"
+function setup-proxy() {
+  export http_proxy=http://localhost:1082
+  export https_proxy=http://localhost:1082
+  export socks_proxy=localhost:1082
+}
+
+function share-screen() {
+  autossh -M 5901 -NR 5900:localhost:5900 nanodesu
+}
+
+alias ls='lsd -F --color=auto'
+alias l='ls'
+alias ll='ls -lh'
+alias la='ls -a'
+alias lla='ll -a'
+alias grep='grep --color=auto'
+
+# editor settings
+export EDITOR='emacs'
+alias ec="emacsclient --alternate-editor="
+alias e='ec -nw'
+alias vim='e'
+alias vi='e'
+alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
+
+alias octave="/Applications/Octave-6.1.0.app/Contents/Resources/usr/Cellar/octave-octave-app@6.1.0/6.1.0/bin/octave-6.1.0"
+
+alias -s jar="java --enable-preview -XstartOnFirstThread -jar"
+
+HISTSIZE=999999999
+SAVEHIST=999999999
+
+append-path "/Library/TeX/texbin"
+append-path "/Users/kiva/.local/bin"
+append-path "/Users/kiva/apps/bin"
+append-path "/Users/kiva/apps/texlive/2021/bin/arm64-darwin"
+append-path "/Users/kiva/apps/qemu/bin"
+append-path "/Users/kiva/apps/ghcup/bin"
+append-path "$(yarn global bin)"
+append-path "/Users/kiva/git/aya-prover/lsp/build/image/bin"
+append-path "/Users/kiva/.cargo/bin"
+append-path "/Users/kiva/apps/agda-nightly/bin"
+export Agda_datadir="/Users/kiva/apps/agda-nightly/data"
 
