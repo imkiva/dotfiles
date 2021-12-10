@@ -87,10 +87,6 @@ eval "$(starship init zsh)"
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
-alias gplr='git pull -r'
-alias gt='gradle test'
-alias gj='gradle jlink'
-
 function append-path() {
   export PATH="$PATH:$1"
 }
@@ -112,30 +108,50 @@ alias la='ls -a'
 alias lla='ll -a'
 alias grep='grep --color=auto'
 
+# system profiling commands
+alias show-power='sudo powermetrics -i 1000 | grep -i "Package Power:"'
+
+# gradle commands
+alias gt='gradle test'
+alias gj='gradle jlink'
+alias -s jar="java --enable-preview -XstartOnFirstThread -jar"
+
 # editor settings
 export EDITOR='emacs'
 alias ec="emacsclient --alternate-editor="
 alias e='ec -nw'
 alias vim='e'
 alias vi='e'
+alias ee='idea -e'
 alias code='/Applications/Visual\ Studio\ Code.app/Contents/Resources/app/bin/code'
 
-alias octave="/Applications/Octave-6.1.0.app/Contents/Resources/usr/Cellar/octave-octave-app@6.1.0/6.1.0/bin/octave-6.1.0"
-
-alias -s jar="java --enable-preview -XstartOnFirstThread -jar"
-
-HISTSIZE=999999999
-SAVEHIST=999999999
-
-append-path "/Library/TeX/texbin"
-append-path "/Users/kiva/.local/bin"
+# shell integration
 append-path "/Users/kiva/apps/bin"
 append-path "/Users/kiva/apps/texlive/2021/bin/arm64-darwin"
 append-path "/Users/kiva/apps/qemu/bin"
-append-path "/Users/kiva/apps/ghcup/bin"
 append-path "$(yarn global bin)"
 append-path "/Users/kiva/git/aya-prover/lsp/build/image/bin"
 append-path "/Users/kiva/.cargo/bin"
-append-path "/Users/kiva/apps/agda-nightly/bin"
-export Agda_datadir="/Users/kiva/apps/agda-nightly/data"
+
+# put hls before nix profile to make make the stack wrapper work
+append-path "/Users/kiva/apps/hls"
+append-path "$HOME/.nix-profile/bin"
+append-path "/nix/var/nix/profiles/default/bin"
+
+# agda
+append-path "/Users/kiva/git/archives/agda/dist-newstyle/install"
+export Agda_datadir="/Users/kiva/git/archives/agda/src/data"
+
+# zsh envs
+TIMEFMT='%J'$'\n'\
+'user: %U, system: %S, cpu percentage: %P, total time: %*E'$'\n'\
+'avg shared (code):         %X KB'$'\n'\
+'avg unshared (data/stack): %D KB'$'\n'\
+'total (sum):               %K KB'$'\n'\
+'max memory:                %M KB'$'\n'\
+'page faults from disk:     %F'$'\n'\
+'other page faults:         %R'
+
+HISTSIZE=999999999
+SAVEHIST=999999999
 
