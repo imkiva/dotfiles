@@ -52,6 +52,9 @@ Set-Alias -Name la  -Value la_git  -Option Private
 Set-Alias -Name ll  -Value ll_git  -Option Private
 Set-Alias -Name lla -Value lla_git -Option Private
 
+function find_git { & 'C:\Program Files\Git\usr\bin\find' $args }
+Set-Alias -Name find -Value find_git -Option Private
+
 # I need them all, but not system-wide.
 $env:PATH="$env:PATH;C:\Program Files\Git\usr\bin"
 
