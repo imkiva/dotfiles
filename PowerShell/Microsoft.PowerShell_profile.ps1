@@ -51,7 +51,6 @@ Set-Alias -Name ls  -Value ls_git  -Option Private
 Set-Alias -Name la  -Value la_git  -Option Private
 Set-Alias -Name ll  -Value ll_git  -Option Private
 Set-Alias -Name lla -Value lla_git -Option Private
-Set-Alias -Name grep -Value findstr
 
 # I need them all, but not system-wide.
 $env:PATH="$env:PATH;C:\Program Files\Git\usr\bin"
