@@ -138,4 +138,32 @@ TIMEFMT='%J'$'\n'\
 HISTSIZE=999999999
 SAVEHIST=999999999
 
+function get_windows_dpi() {
+  local WindowMetricsAppliedDPI=$("/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe" "(Get-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop\\WindowMetrics').AppliedDPI")
+  WindowMetricsAppliedDPI=${WindowMetricsAppliedDPI%$'\r'}
+  # local dpi_scale=$(bc <<<"scale=2; $WindowMetricsAppliedDPI / 96")
+  # ^ the above calculates the DPI to scale factor, like 2.0
+  echo "$WindowMetricsAppliedDPI"
+}
+
+function wslg_dpi_scale() {
+  if [[ "$(xrdb -query)"x == ""x ]]; then
+    local dpi_scale="$(get_windows_dpi)"
+    cat > ~/.Xresource <<EOF
+Xft.dpi: $dpi_scale
+
+! These might also be useful depending on your monitor and personal preference:
+Xft.autohint: 0
+Xft.lcdfilter:  lcddefault
+Xft.hintstyle:  hintfull
+Xft.hinting: 1
+Xft.antialias: 1
+Xft.rgba: rgb
+EOF
+    xrdb -merge ~/.Xresource
+    echo "Done setting DPI Scale to $dpi_scale"
+  fi
+}
+
+[ -d /mnt/wslg/runtime-dir ] && wslg_dpi_scale
 
