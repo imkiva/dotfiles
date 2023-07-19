@@ -138,6 +138,18 @@ TIMEFMT='%J'$'\n'\
 HISTSIZE=999999999
 SAVEHIST=999999999
 
+export PATH="$PATH:/home/kiva/tools/bin"
+export PATH="$PATH:/home/kiva/tools/riscv/bin"
+
+# for RISC-V compiler development
+export R="/home/kiva/tools/riscv"
+export S="$R/sysroot"
+export T="riscv64-unknown-linux-gnu"
+
+# quick compiling and running
+alias @="/home/kiva/buildhost/bin/clang"
+alias _="qemu-riscv64 -L $S"
+
 function get_windows_dpi() {
   local WindowMetricsAppliedDPI=$("/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe" "(Get-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop\\WindowMetrics').AppliedDPI")
   WindowMetricsAppliedDPI=${WindowMetricsAppliedDPI%$'\r'}
