@@ -91,16 +91,6 @@ function append-path() {
   export PATH="$PATH:$1"
 }
 
-function setup-proxy() {
-  export http_proxy=http://localhost:1082
-  export https_proxy=http://localhost:1082
-  export socks_proxy=localhost:1082
-}
-
-function share-screen() {
-  autossh -M 5901 -NR 5900:localhost:5900 nanodesu
-}
-
 alias ls='lsd -F --color=auto'
 alias l='ls'
 alias ll='ls -lh'

@@ -70,7 +70,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting docker github colored-man-pages screen gradle sudo)
+plugins=(git zsh-autosuggestions zsh-syntax-highlighting zsh-history-substring-search docker github colored-man-pages screen gradle sudo)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,6 +100,10 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
+function append-path() {
+  export PATH="$PATH:$1"
+}
+
 export GPG_TTY=$(tty)
 
 alias ls='lsd -F --color=auto'
@@ -110,16 +114,12 @@ alias lla='ll -a'
 alias grep='grep --color=auto'
 
 # editor settings
-export EDITOR='emacs'
-alias ec="emacsclient --alternate-editor="
-alias e='ec -nw'
-alias vim='e'
-alias vi='e'
-alias ee='idea -e'
-
-# shell integration
-
-# put hls before nix profile to make make the stack wrapper work
+# export EDITOR='emacs'
+# alias ec="emacsclient --alternate-editor="
+# alias e='ec -nw'
+# alias vim='e'
+# alias vi='e'
+# alias ee='idea -e'
 
 # agda
 # append-path "/Users/kiva/git/archives/agda/dist-newstyle/install"
@@ -138,17 +138,22 @@ TIMEFMT='%J'$'\n'\
 HISTSIZE=999999999
 SAVEHIST=999999999
 
-export PATH="$PATH:/home/kiva/tools/bin"
-export PATH="$PATH:/home/kiva/tools/riscv/bin"
-
 # for RISC-V compiler development
 export R="/home/kiva/tools/riscv"
 export S="$R/sysroot"
 export T="riscv64-unknown-linux-gnu"
 
-# quick compiling and running
+append-path "/home/kiva/tools/bin"
+append-path "$R/bin"
+
+# for quick access to development clang
 alias @="/home/kiva/buildhost/bin/clang"
+alias @@="/home/kiva/tools/rllvm/riscv/bin/clang"
 alias _="qemu-riscv64 -L $S"
+
+# zsh-history-substring-search
+bindkey "$key[Up]" history-substring-search-up
+bindkey "$key[Down]" history-substring-search-down
 
 function get_windows_dpi() {
   local WindowMetricsAppliedDPI=$("/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe" "(Get-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop\\WindowMetrics').AppliedDPI")
@@ -160,7 +165,8 @@ function get_windows_dpi() {
 
 function wslg_dpi_scale() {
   if [[ "$(xrdb -query)"x == ""x ]]; then
-    local dpi_scale="$(get_windows_dpi)"
+    #local dpi_scale="$(get_windows_dpi)"
+    local dpi_scale=192
     cat > ~/.Xresource <<EOF
 Xft.dpi: $dpi_scale
 
@@ -179,3 +185,7 @@ EOF
 
 [ -d /mnt/wslg/runtime-dir ] && wslg_dpi_scale
 
+# Tmux is good
+case $- in *i*)
+  [ -z "$TMUX" ] && { exec tmux new-session; }
+esac
