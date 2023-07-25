@@ -252,8 +252,8 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left=" ❐ #S "
-tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} | CPU #{cpu_percentage} | RAM #{mem_usage} "
+tmux_conf_theme_status_left=" ❐ #S"
+tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} | CPU #{cpu_percentage} | RAM #{mem_usage}"
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
@@ -438,9 +438,9 @@ set -g @plugin 'tmux-plugins/tmux-logging'
 #
 # # /!\ do not "uncomment" the functions: the leading "# " characters are needed
 #
-# weather() {                                         # see https://github.com/chubin/wttr.in#one-line-output
-#   curl -f -s -m 2 'wttr.in?format=3' || printf '\n' # /!\ make sure curl is installed
-#   sleep 900                                         # sleep for 15 minutes, throttle network requests whatever the value of status-interval
+# now_weather() {
+#   curl 'wttr.in/@gateway.islovely.icu?m&format=%c%t' || printf '\n'
+#   sleep 900
 # }
 #
 # online() {
