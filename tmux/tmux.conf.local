@@ -252,12 +252,12 @@ tmux_conf_theme_right_separator_sub='\uE0B3'  #   PowerlineSymbols.otf font, see
 #     - #{uptime_s}
 #     - #{username}
 #     - #{username_ssh}
-tmux_conf_theme_status_left=" ❐ #S | #{now_weather} "
+tmux_conf_theme_status_left=" ❐ #S | #{weather} "
 tmux_conf_theme_status_right=" #{prefix}#{mouse}#{pairing}#{synchronized}#{?battery_status,#{battery_status},}#{?battery_bar, #{battery_bar},}#{?battery_percentage, #{battery_percentage},} | CPU #{cpu_percentage} | RAM #{ram_percentage} "
 
 # status left style
 tmux_conf_theme_status_left_fg="$tmux_conf_theme_colour_6,$tmux_conf_theme_colour_7,$tmux_conf_theme_colour_8"
-tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_9,$tmux_conf_theme_colour_10,$tmux_conf_theme_colour_11"
+tmux_conf_theme_status_left_bg="$tmux_conf_theme_colour_9,#4e4e4e,$tmux_conf_theme_colour_11"
 tmux_conf_theme_status_left_attr="bold,none,none"
 
 # status right style
@@ -422,6 +422,11 @@ set -g @plugin 'tmux-plugins/tmux-logging'
 #set -g @plugin 'tmux-plugins/tmux-continuum'
 #set -g @continuum-restore 'on'
 
+set -g @plugin 'imkiwa/tmux-weather'
+set-option -g @tmux-weather-location "@gateway.islovely.icu"
+set-option -g @tmux-weather-format   "%C+%t"
+set-option -g @tmux-weather-hide-positive-number-sign "true"
+set-option -g @tmux-weather-sanitize "true"
 
 # -- custom variables ----------------------------------------------------------
 
@@ -437,11 +442,6 @@ set -g @plugin 'tmux-plugins/tmux-logging'
 # EOF
 #
 # # /!\ do not "uncomment" the functions: the leading "# " characters are needed
-#
-# now_weather() {
-#   curl -fsSL 'wttr.in/@gateway.islovely.icu?m&format=%t' || printf '\n'
-#   sleep 900
-# }
 #
 # online() {
 #   ping -c 1 1.1.1.1 >/dev/null 2>&1 && printf '✔' || printf '✘'
