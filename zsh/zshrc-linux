@@ -125,6 +125,11 @@ alias grep='grep --color=auto'
 # append-path "/Users/kiva/git/archives/agda/dist-newstyle/install"
 # export Agda_datadir="/Users/kiva/git/archives/agda/src/data"
 
+# force UTF-8
+export LANG=en_US.UTF-8
+export LC_CTYPE=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+
 # zsh envs
 TIMEFMT='%J'$'\n'\
 'user: %U, system: %S, cpu percentage: %P, total time: %*E'$'\n'\
