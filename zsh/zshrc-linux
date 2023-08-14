@@ -151,6 +151,9 @@ export T="riscv64-unknown-linux-gnu"
 append-path "/home/kiva/tools/bin"
 append-path "$R/bin"
 
+# for https://reviews.llvm.org
+append-path "/home/kiva/tools/arcanist/bin"
+
 # for quick access to development clang
 alias @="/home/kiva/buildhost/bin/clang"
 alias @@="/home/kiva/tools/rllvm/riscv/bin/clang"
