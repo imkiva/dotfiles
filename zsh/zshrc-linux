@@ -148,6 +148,8 @@ export R="/home/kiva/tools/riscv"
 export S="$R/sysroot"
 export T="riscv64-unknown-linux-gnu"
 
+# JetBrains Toolbox
+append-path "/home/kiva/tools/jetbrains-toolbox"
 append-path "/home/kiva/tools/bin"
 append-path "$R/bin"
 
@@ -185,6 +187,10 @@ Xft.hintstyle:  hintfull
 Xft.hinting: 1
 Xft.antialias: 1
 Xft.rgba: rgb
+
+! Increase mouse size
+Xcursor.size: 48
+
 EOF
     xrdb -merge ~/.Xresource
     echo "Done setting DPI Scale to $dpi_scale"
