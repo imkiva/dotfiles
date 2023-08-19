@@ -150,7 +150,9 @@ export T="riscv64-unknown-linux-gnu"
 
 # JetBrains Toolbox
 append-path "/home/kiva/tools/jetbrains-toolbox"
+# Useful scripts
 append-path "/home/kiva/tools/bin"
+# RISC-V toolchain
 append-path "$R/bin"
 
 # for https://reviews.llvm.org
@@ -158,6 +160,10 @@ append-path "/home/kiva/tools/arcanist/bin"
 
 # for quick access to development clang
 alias @="/home/kiva/buildhost/bin/clang"
+# for quick access to development upstream clang
+alias @u="/home/kiva/upstream/buildhost/bin/clang"
+
+# for quick testing development clang
 alias @@="/home/kiva/tools/rllvm/riscv/bin/clang"
 alias _="qemu-riscv64 -L $S"
 
@@ -165,6 +171,8 @@ alias _="qemu-riscv64 -L $S"
 #bindkey "$key[Up]" history-substring-search-up
 #bindkey "$key[Down]" history-substring-search-down
 
+
+# Workaround of https://youtrack.jetbrains.com/issue/JBR-3206/Native-Wayland-support
 function get_windows_dpi() {
   local WindowMetricsAppliedDPI=$("/mnt/c/Windows/System32/WindowsPowerShell/v1.0/powershell.exe" "(Get-ItemProperty -Path 'HKCU:\\Control Panel\\Desktop\\WindowMetrics').AppliedDPI")
   WindowMetricsAppliedDPI=${WindowMetricsAppliedDPI%$'\r'}
@@ -199,7 +207,9 @@ EOF
 
 [ -d /mnt/wslg/runtime-dir ] && wslg_dpi_scale
 
-# Tmux is good
+# tmux is good
 case $- in *i*)
   [ -z "$TMUX" ] && { exec tmux new-session; }
 esac
+
+
