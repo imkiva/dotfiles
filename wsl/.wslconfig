@@ -1,0 +1,5 @@
+[wsl2]
+memory=96GB
+swap=0
+localhostForwarding=true
+systemDistro=C:\\WSL2\\system.vhd
