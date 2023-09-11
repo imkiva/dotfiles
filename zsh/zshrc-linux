@@ -143,7 +143,13 @@ TIMEFMT='%J'$'\n'\
 HISTSIZE=999999999
 SAVEHIST=999999999
 
-# for RISC-V compiler development
+# Java toolchain
+export JAVA_HOME="/usr/lib/jvm/java-19-openjdk-amd64"
+
+# for RISC-V compiler development:
+# R stands for RISCV
+# S stands for Sysroot
+# T stands for Target triple
 export R="/home/kiva/tools/riscv"
 export S="$R/sysroot"
 export T="riscv64-unknown-linux-gnu"
@@ -155,7 +161,7 @@ append-path "/home/kiva/tools/bin"
 # RISC-V toolchain
 append-path "$R/bin"
 
-# for https://reviews.llvm.org
+# command-line interface for https://reviews.llvm.org
 append-path "/home/kiva/tools/arcanist/bin"
 
 # for quick access to development clang
@@ -163,9 +169,19 @@ alias @="/home/kiva/buildhost/bin/clang"
 # for quick access to development upstream clang
 alias @u="/home/kiva/upstream/buildhost/bin/clang"
 
-# for quick testing development clang
-alias @@="/home/kiva/tools/rllvm/riscv/bin/clang"
+# for running riscv64 executables via qemu-user
 alias _="qemu-riscv64 -L $S"
+
+# CUDA toolchain
+append-path "/usr/local/cuda/bin"
+
+# MLIR, ONNX-MLIR, buddy-mlir setup
+append-path "/home/kiva/buddy/onnx-mlir/build/RelWithDbgInfo/bin"
+# Avoid messing up PATH with LLVM/Clang binaries by placing mlir binaries separately:
+## cd buddy-mlir/build/bin
+## mkdir mlir && cd mlir
+## for i in ../mlir-*; do ln -sf $(realpath $i) $(basename $i); done
+append-path "/home/kiva/buddy/buddy-mlir/build/bin/mlir"
 
 # Generate patch in the form suggested by LLVM orgnization
 function gen-patch() {
