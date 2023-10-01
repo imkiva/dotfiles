@@ -180,7 +180,7 @@ append-path "/home/kiva/buddy/onnx-mlir/build/RelWithDbgInfo/bin"
 # Avoid messing up PATH with LLVM/Clang binaries by placing mlir binaries separately:
 ## cd buddy-mlir/build/bin
 ## mkdir mlir && cd mlir
-## for i in ../mlir-*; do ln -sf $(realpath $i) $(basename $i); done
+## for i in ../mlir-* ../buddy-*; do ln -sf $(realpath $i) $(basename $i); done
 append-path "/home/kiva/buddy/buddy-mlir/build/bin/mlir"
 
 # Generate patch in the form suggested by LLVM orgnization
@@ -231,7 +231,8 @@ EOF
   fi
 }
 
-[ -d /mnt/wslg/runtime-dir ] && wslg_dpi_scale
+# TODO: if running in MobaXTerm, do not call this function
+# [ -d /mnt/wslg/runtime-dir ] && wslg_dpi_scale
 
 # tmux is good
 case $- in *i*)
