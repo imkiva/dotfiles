@@ -166,6 +166,7 @@ append-path "/home/kiva/tools/arcanist/bin"
 
 # for quick access to development clang
 alias @="/home/kiva/buildhost/bin/clang"
+alias @++="/home/kiva/buildhost/bin/clang++"
 # for quick access to development upstream clang
 alias @u="/home/kiva/upstream/buildhost/bin/clang"
 
@@ -231,8 +232,7 @@ EOF
   fi
 }
 
-# TODO: if running in MobaXTerm, do not call this function
-# [ -d /mnt/wslg/runtime-dir ] && wslg_dpi_scale
+[ -d /mnt/wslg/runtime-dir ] && wslg_dpi_scale
 
 # tmux is good
 case $- in *i*)
