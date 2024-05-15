@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+cat $@ | grep "return" | while read line; do
+  th="$(echo $line | cut -c 8- | tr -d -- ';')"
+  rv="__riscv_$(echo $th | cut -c 12- | tr -d -- ';')"
+  echo "#define $rv $th"
+done
+

@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -x
+# git show 4e9340c7 -U999999 > ../"[LLDB][RISCV]_Fix_TestDeletedExecutable_on_linux-riscv.patch"
+
+commit_id="$1"
+dir="/home/kiva/llvm-project"
+
+cd $dir
+
+commit_message="$(git rev-list --format=%B -n 1 ${commit_id} | head -2 | tail -1)"
+
+echo $commit_message
+
+filename="${commit_message// /_}"
+
+echo $filename
+
+git show $commit_id -U999999 > /home/kiva/patches/"${filename}.patch"
+
+

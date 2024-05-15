@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+(cd ~/buildhost && ninja clang)
+
+~/buildhost/bin/clang -march=rv64gc_xtheadvector -S -emit-llvm -O1 $1 -o -
+
