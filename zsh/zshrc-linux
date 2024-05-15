@@ -154,6 +154,9 @@ export R="/home/kiva/tools/riscv"
 export S="$R/sysroot"
 export T="riscv64-unknown-linux-gnu"
 
+# proto3
+export PATH="/home/kiva/tools/protoc/bin:$PATH"
+
 # JetBrains Toolbox
 append-path "/home/kiva/tools/jetbrains-toolbox"
 # Useful scripts
