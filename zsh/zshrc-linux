@@ -155,7 +155,7 @@ export S="$R/sysroot"
 export T="riscv64-unknown-linux-gnu"
 
 # proto3
-export PATH="/home/kiva/tools/protoc/bin:$PATH"
+# export PATH="/home/kiva/tools/protoc/bin:$PATH"
 
 # JetBrains Toolbox
 append-path "/home/kiva/tools/jetbrains-toolbox"
@@ -235,11 +235,21 @@ EOF
   fi
 }
 
-[ -d /mnt/wslg/runtime-dir ] && wslg_dpi_scale
+[ -d /mnt/wslg/runtime-dir ] && { 
+  # IntelliJ IDEA in WSLg HiDPI: https://intellij-support.jetbrains.com/hc/en-us/articles/360007994999/comments/360001811099
+  # Windows Setttings: 4K, 200% scale
+  wslg_dpi_scale
+  export GDK_SCALE=2.0
+  export GDK_DPI_SCALE=1.0
+  sudo ip link set dev eth0 mtu 1280
+}
 
 # tmux is good
 case $- in *i*)
   [ -z "$TMUX" ] && { exec tmux new-session; }
 esac
 
+
+export MODULAR_HOME="/home/kiva/.modular"
+export PATH="/home/kiva/.modular/pkg/packages.modular.com_mojo/bin:$PATH"
 
